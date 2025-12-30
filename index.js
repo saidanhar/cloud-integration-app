@@ -1,11 +1,11 @@
-// Import package yang dibutuhkan
+// Import library yang dibutuhkan
 const express = require('express');
 const mysql = require('mysql2');
 const app = express();
 
-// Konfigurasi koneksi ke database MySQL / MariaDB
+// Koneksi ke database lokal (atau ganti IP jika hybrid)
 const db = mysql.createConnection({
-  host: 'localhost',          // untuk Render + Hybrid ubah ke IP server lokal kamu
+  host: 'localhost',
   user: 'clouduser',
   password: '12345',
   database: 'cloud_integration'
@@ -20,13 +20,12 @@ db.connect(err => {
   console.log('✅ Database connected');
 });
 
-// === ROUTE UTAMA ===
-// Akses di: https://<nama-app>.onrender.com/
+// Route utama: tampilkan pesan di browser
 app.get('/', (req, res) => {
   res.send('🚀 Cloud Integration API running successfully on Render!');
 });
 
-// === ROUTE TAMBAHAN (opsional, contoh) ===
+// Route tambahan: endpoint status
 app.get('/status', (req, res) => {
   res.json({ status: 'ok', message: 'Server berjalan normal ✅' });
 });
